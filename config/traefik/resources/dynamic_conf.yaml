@@ -1,0 +1,35 @@
+# http routing section
+http:
+  routers:
+    # Define a connection between requests and services
+    to-demo:
+      rule: "Host(`example.com`) && PathPrefix(`/api/demo/`)"
+       # If the rule matches, applies the middleware
+      middlewares:
+      - auth
+      - clean
+      - request
+      # If the rule matches, forward to the whoami service (declared below)
+      service: webhooksite
+
+  middlewares:
+    # Define an authentication mechanism
+    auth:
+      basicAuth:
+        users:
+        - test:$apr1$JDQp4muj$vsXxfKKXGAHE061nb0su0/
+    clean:
+      stripPrefix:
+        prefixes:
+          - "/api/demo"
+    request:
+      addPrefix:
+        prefix: "/f4ea389d-98fd-4ebc-b626-01d6aeac1b4c"
+  services:
+    # Define how to reach an existing service on our infrastructure
+    webhooksite:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+        # Path portion of URL is ignored!!!! https://doc.traefik.io/traefik/v2.0/routing/services/#servers
+        - url: https://webhook.site

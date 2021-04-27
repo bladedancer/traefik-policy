@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+  labels:
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      containers:
+        - name: traefik
+          image: traefik:v2.4
+          imagePullPolicy: IfNotPresent
+          ports:
+          - name: http-proxy
+            containerPort: 8080
+          - name: http-traffic
+            containerPort: 80
+          - name: https-traffic
+            containerPort: 443
+          env: 
+            - name: TRAEFIK_LOG_LEVEL
+              value: "DEBUG"
+            - name: TRAEFIK_LOGLEVEL
+              value: "DEBUG"
+          volumeMounts:
+            - name: config
+              mountPath: /etc/traefik/
+            - name: resourcesvolstorage
+              mountPath: /resources
+
+      volumes:
+        - name: config
+          configMap:
+            name: traefik
+        - name: resourcesvolstorage
+          hostPath:
+            path: /tmp/config/traefik/resources
+            type: Directory
