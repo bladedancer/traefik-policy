@@ -8,10 +8,6 @@ on:
       - v*
   pull_request:
 
-defaults:
-  run:
-    working-directory: ./policyplugin
-
 jobs:
 
   main:
@@ -61,7 +57,8 @@ jobs:
         run: go env -w GOPATH=${{ github.workspace }}/go
 
       - name: Check and get dependencies
-        run: |
+        working-directory: ./policyplugin
+        run: |          
           go mod tidy
           git diff --exit-code go.mod
           # git diff --exit-code go.sum
