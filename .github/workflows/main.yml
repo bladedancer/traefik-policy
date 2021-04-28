@@ -71,5 +71,6 @@ jobs:
 
       - name: Run tests with Yaegi
         run: make yaegi_test
+        working-directory: ./policyplugin
         env:
           GOPATH: ${{ github.workspace }}/go
