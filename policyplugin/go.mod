@@ -1,3 +1,3 @@
-module github.com/traefik/plugindemo
+module github.com/bladedancer/traefik-policy/policyplugin
 
 go 1.15
