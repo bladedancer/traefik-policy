@@ -39,4 +39,5 @@ jobs:
             ${{ runner.os }}-${{ matrix.go-version }}-go-
 
       - name: Test
+        working-directory: ./policyplugin
         run: go test -v -cover ./...
