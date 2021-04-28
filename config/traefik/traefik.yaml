@@ -150,3 +150,9 @@ providers:
     # Default: true
     #
 #    exposedByDefault: false
+
+experimental:
+  plugins:
+    policyplugin:
+      moduleName: github.com/bladedancer/traefic-policy/policyplugin
+      version: v0.0.1

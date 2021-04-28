@@ -9,6 +9,7 @@ http:
       - auth
       - clean
       - request
+      - policy
       # If the rule matches, forward to the whoami service (declared below)
       service: webhooksite
 
@@ -25,6 +26,11 @@ http:
     request:
       addPrefix:
         prefix: "/f4ea389d-98fd-4ebc-b626-01d6aeac1b4c"
+    policy:
+      plugin:
+        policyplugin:
+          headers:
+            Foo: Bar
   services:
     # Define how to reach an existing service on our infrastructure
     webhooksite:

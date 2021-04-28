@@ -1,4 +1,4 @@
-displayName: Demo Plugin
+displayName: Policy Plugin
 type: middleware
 
 import: github.com/bladedancer/traefik-policy/policyplugin
